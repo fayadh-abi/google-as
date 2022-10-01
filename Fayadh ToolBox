@@ -1,0 +1,32 @@
+function onOpen(){
+SpreadsheetApp.getUi()
+.createMenu('Fayadh ToolBox')
+.addItem('» Tambah kolom baru di semua sheet', 'addColumn')
+.addToUi();
+
+}
+function addColumn() {
+var ss = SpreadsheetApp.getActiveSpreadsheet();
+var sheets = ss.getSheets();
+var num = sheets.length;
+var ui = SpreadsheetApp.getUi();
+var ask = ui.prompt('Tambah kolom baru di semua sheet?',
+                    'Isikan nama kolom baru : \n\n',
+                     ui.ButtonSet.OK_CANCEL);
+var response = ask.getResponseText();
+for(var i=0; i<num; i++){
+
+var col = sheets[i].getLastColumn()+1;
+sheets[i].getRange(1, col).setValue(response);
+
+}
+var button = ask.getSelectedButton();
+  if (button == ui.Button.OK) {
+    // User clicked "OK".
+    ui.alert('Berhasil !',
+         'Kolom ' + response + ' telah ditambahkan di semua sheet.',ui.ButtonSet.OK);
+  } else if (button == ui.Button.CANCEL) {
+    // User clicked "Cancel".
+  }
+  
+}
